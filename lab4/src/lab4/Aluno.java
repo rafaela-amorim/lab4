@@ -31,21 +31,20 @@ public class Aluno {
 	public Aluno(String mat, String nome, String curso) {
 		if (nome == null || mat == null || curso == null) {
 			throw new NullPointerException();
-
-		} else if (nome.trim().length() == 0) {
-			throw new IllegalArgumentException();
-
-		} else if (nome.trim().length() == 0) {
-			throw new IllegalArgumentException();
-
-		} else if (nome.trim().length() == 0) {
-			throw new IllegalArgumentException();
-
-		} else {
-			this.matricula = mat;
-			this.nome = nome;
-			this.curso = curso;
 		}
+		if (nome.trim().length() == 0) {
+			throw new IllegalArgumentException();
+		}
+		if (mat.trim().length() == 0) {
+			throw new IllegalArgumentException();
+		}
+		if (curso.trim().length() == 0) {
+			throw new IllegalArgumentException();
+		}
+		
+		this.matricula = mat;
+		this.nome = nome;
+		this.curso = curso;
 	}
 
 	// **************** Métodos *********************
@@ -110,8 +109,8 @@ public class Aluno {
 		if (obj instanceof Aluno) {
 			Aluno novoAluno = (Aluno) obj;
 			return getMatricula().equals(novoAluno.getMatricula());
-		} else {
-			return false;
 		}
+		
+		return false;
 	}
 }

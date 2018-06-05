@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * Classe que armazena e organiza alunos e grupos de estudo, organiza os alunos que respondem questões.
  * 
  * @author Rafaela de Amorim - 117.210.299
  *
@@ -51,9 +52,9 @@ public class Sistema {
 			Aluno auxAluno = new Aluno(matricula, nome, curso);
 			alunos.put(matricula, auxAluno);
 			return "CADASTRO REALIZADO!";
-		} else {
-			return "MATRÍCULA JÁ CADASTRADA!";
 		}
+		
+		return "MATRÍCULA JÁ CADASTRADA!";
 	}
 
 	/**
@@ -63,19 +64,17 @@ public class Sistema {
 	 * 
 	 * @param nome
 	 *            Nome do Grupo
-	 * @param tema
-	 *            Tema do Grupo
 	 * @return Retorna uma mensagem que diz se o grupo foi cadastrado ou se ele já
 	 *         existe no sistema.
 	 */
-	public String cadastraGrupo(String nome, String tema) {
+	public String cadastraGrupo(String nome) {
 		if (!(grupos.containsKey(nome))) {
-			GrupoEstudo auxGrupo = new GrupoEstudo(nome, tema);
-			grupos.put(nome, auxGrupo);
+			GrupoEstudo auxGrupo = new GrupoEstudo(nome);
+			grupos.put(nome.toLowerCase(), auxGrupo);
 			return "CADASTRO REALIZADO!";
-		} else {
-			return "GRUPO JÁ CADASTRADO!";
-		}
+		} 
+		
+		return "GRUPO JÁ CADASTRADO!";
 	}
 
 	/**
@@ -91,9 +90,8 @@ public class Sistema {
 	public String buscaAluno(String matricula) {
 		if (alunos.containsKey(matricula)) {
 			return alunos.get(matricula).toString();
-		} else {
-			return "Aluno não cadastrado.";
 		}
+		return "Aluno não cadastrado.";
 	}
 
 	/**
@@ -112,15 +110,15 @@ public class Sistema {
 
 		if (!(alunos.containsKey(matricula))) {
 			return "ALUNO NÃO CADASTRADO.";
-		} else if (!(grupos.containsKey(nomeGrupo))) {
+		} else if (!(grupos.containsKey(nomeGrupo.toLowerCase()))) {
 			return "GRUPO NÃO CADASTRADO.";
-		} else {
-			GrupoEstudo auxGrupo = grupos.get(nomeGrupo);
-			Aluno auxAluno = alunos.get(matricula);
-
-			auxGrupo.adicionaAluno(auxAluno);
-			return "ALUNO ALOCADO!";
 		}
+		
+		GrupoEstudo auxGrupo = grupos.get(nomeGrupo.toLowerCase());
+		Aluno auxAluno = alunos.get(matricula);
+
+		auxGrupo.adicionaAluno(auxAluno);
+		return "ALUNO ALOCADO!";
 	}
 
 	/**
@@ -134,14 +132,14 @@ public class Sistema {
 	 *         existir, senão retorna uma String com uma mensagem de aviso.
 	 */
 	public String imprimeGrupo(String nomeGrupo) {
-		if (!(grupos.containsKey(nomeGrupo))) {
+		if (!(grupos.containsKey(nomeGrupo.toLowerCase()))) {
 			return "GRUPO NÃO CADASTRADO.";
-		} else {
-			GrupoEstudo auxGrupo = grupos.get(nomeGrupo);
-			String integrantesGrupo = "Alunos do Grupo " + nomeGrupo + ":\n";
-
-			return integrantesGrupo + auxGrupo.listaAlunos();
 		}
+		
+		GrupoEstudo auxGrupo = grupos.get(nomeGrupo.toLowerCase());
+		String integrantesGrupo = "Alunos do Grupo " + nomeGrupo + ":\n";
+
+		return integrantesGrupo + auxGrupo.listaAlunos();
 	}
 
 	/**
@@ -158,9 +156,9 @@ public class Sistema {
 		if (alunos.containsKey(mat)) {
 			responderam.add(alunos.get(mat).toString());
 			return "ALUNO REGISTRADO!";
-		} else {
-			return "ALUNO NÃO CADASTRADO.";
 		}
+		
+		return "ALUNO NÃO CADASTRADO.";
 	}
 
 	/**

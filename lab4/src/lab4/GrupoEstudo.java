@@ -13,37 +13,27 @@ public class GrupoEstudo {
 	// **************** Atributos *********************
 	private String nome;
 
-	private String tema;
-
 	private HashSet<Aluno> integrantes;
 
 	// **************** Construtor *********************
 
 	/**
-	 * Constrói o Grupo recebendo como parâmetros Strings com, respectivamente, o
-	 * nome e o tema do grupo, e inicializa o HashSet que guarda objetos da classe
-	 * Aluno.
+	 * Constrói o Grupo recebendo como parâmetros Strings com o nome e inicializa o
+	 * HashSet que guarda objetos da classe Aluno.
 	 * 
 	 * @param nome
 	 *            Nome do Grupo.
-	 * @param tema
-	 *            Tema do Grupo.
 	 */
-	public GrupoEstudo(String nome, String tema) {
-		if (nome == null || tema == null) {
+	public GrupoEstudo(String nome) {
+		if (nome == null) {
 			throw new NullPointerException();
-
-		} else if (nome.trim().length() == 0) {
-			throw new IllegalArgumentException();
-
-		} else if (tema.trim().length() == 0) {
-			throw new IllegalArgumentException();
-
-		} else {
-			this.nome = nome.toLowerCase();
-			this.tema = tema;
-			integrantes = new HashSet<>();
 		}
+		if (nome.trim().length() == 0) {
+			throw new IllegalArgumentException();
+		}
+		
+		this.nome = nome.toLowerCase();
+		integrantes = new HashSet<>();
 	}
 
 	// **************** Métodos *********************
@@ -58,15 +48,6 @@ public class GrupoEstudo {
 	}
 
 	/**
-	 * Método que retorna o tema do Grupo.
-	 * 
-	 * @return String com o tema.
-	 */
-	public String getTema() {
-		return tema;
-	}
-
-	/**
 	 * Método que adiciona um aluno no conjunton de integrantes do grupo.
 	 * 
 	 * @param integrante
@@ -75,16 +56,23 @@ public class GrupoEstudo {
 	public void adicionaAluno(Aluno novoIntegrante) {
 		integrantes.add(novoIntegrante);
 	}
-	
+
+	/**
+	 * Método retorna uma String em forma de lista com todos os integrantes do grupo
+	 * e suas informações.
+	 * 
+	 * @return Lista com as informações dos integrantes do grupo.
+	 */
 	public String listaAlunos() {
 		String listaDeAlunos = "";
-		
-		for (Aluno alumn: integrantes) {
+
+		for (Aluno alumn : integrantes) {
 			listaDeAlunos += "* " + alumn.toString() + System.lineSeparator();
 		}
-		
+
 		return listaDeAlunos.trim();
 	}
+
 	/**
 	 * Método que gera um inteiro para representar o objeto.
 	 */
@@ -107,9 +95,9 @@ public class GrupoEstudo {
 		if (obj instanceof GrupoEstudo) {
 			GrupoEstudo grupo = (GrupoEstudo) obj;
 			return getNome().equals(grupo.getNome());
-		} else {
-			return false;
-		}
+		} 
+		
+		return false;
 	}
 
 }
